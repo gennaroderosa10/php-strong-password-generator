@@ -1,4 +1,7 @@
 <?php
+
+$password = "";
+
 if (isset($_GET['length'])) {
     $maiuscole = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $minuscole = "abcdefghijklmnopqrstuvwxyz";
@@ -6,6 +9,16 @@ if (isset($_GET['length'])) {
     $simboli = "!@#$%^&*()";
 
     $tutti_caratteri = $maiuscole . $minuscole . $numeri . $simboli;
+
+
+
+    for ($i = 0; $i < $_GET['length']; $i++) {
+
+        $random_posizione = rand(0, strlen($tutti_caratteri) - 1);
+        $random_caratteri = substr($tutti_caratteri, $random_posizione, 1);
+
+        $password .= $random_caratteri;
+    }
 }
 ?>
 
@@ -29,11 +42,23 @@ if (isset($_GET['length'])) {
     <h1>PASSWORD GENERATOR</h1>
 
     <form action="">
-        <input id="length" name="length" type="number" min="5" max="10">
+        <input id="length" name="length" type="number" min="5" max="20">
         <label for="length">Lunghezza</label>
 
         <button>Create</button>
     </form>
+    <hr>
+
+    <?php
+    if ($password != "") {
+    ?>
+        <h2>LA TUA PASSWORD</h2>
+        <p><?php echo $password; ?></p>
+
+    <?php
+    }
+    ?>
+
 </body>
 
 </html>
